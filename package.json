@@ -1,7 +1,7 @@
 {
   "name": "blocpkg",
-  "version": "1.0.0",
-  "description": "BlocPkg is a reusable code module",
+  "version": "0.0.1",
+  "description": "[WIP] BlocPkg is a reusable code module",
   "main": "index.js",
   "scripts": {
     "test": "tape"
