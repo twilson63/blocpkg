@@ -4,7 +4,7 @@
   "description": "[WIP] BlocPkg is a reusable code module",
   "main": "index.js",
   "scripts": {
-    "test": "tape"
+    "test": "tape test.js"
   },
   "keywords": [
     "reusability",
@@ -15,6 +15,7 @@
   "author": "Tom",
   "license": "MIT",
   "devDependencies": {
+    "nanobus": "^3.2.1",
     "tape": "^4.6.3"
   },
   "dependencies": {

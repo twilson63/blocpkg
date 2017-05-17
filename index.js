@@ -2,7 +2,13 @@ module.exports = blocpkg => {
   return Object.freeze({
     register(config, bus) {
       mapObj(createListener(config, bus), blocpkg.blocs)
-      return { blocs: Object.keys(blocpkg.blocs), docs: blockpkg.docs }
+      return {
+        blocs: Object.keys(blocpkg.blocs).reduce((acc, v) => {
+          acc[v] = v
+          return acc
+        }, {}),
+        docs: blocpkg.docs
+      }
     }
   })
 }
@@ -10,12 +16,13 @@ module.exports = blocpkg => {
 function createListener(config, bus) {
   return function(bloc, blockType) {
     bus.on(blockType, payload => {
-      const { target, ...rest } = payload
+      const target = payload.target
+      const rest = omit(['target'], payload)
       if (bloc.validate(rest)) {
         bloc
           .exec(config, rest)
-          .then(res => bus.emit(target, { ...res, ok: true }))
-          .catch(err => bus.emit(target, { ...err, ok: false }))
+          .then(res => bus.emit(target, Object.assign(res, { ok: true })))
+          .catch(err => bus.emit(target, Object.assign(err, { ok: true })))
       }
     })
   }
@@ -23,4 +30,13 @@ function createListener(config, bus) {
 
 function mapObj(fn, o) {
   return Object.keys(o).map(key => fn(o[key], key))
+}
+
+function omit(keys, o) {
+  let objectKeys = Object.keys(o)
+  objectKeys = objectKeys.filter(key => !~keys.indexOf(key))
+  return objectKeys.reduce((acc, v) => {
+    acc[v] = o[v]
+    return acc
+  }, {})
 }
