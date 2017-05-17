@@ -16,5 +16,16 @@
   "license": "MIT",
   "devDependencies": {
     "tape": "^4.6.3"
-  }
+  },
+  "dependencies": {
+    "tape": "^4.6.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twilson63/blocpkg.git"
+  },
+  "bugs": {
+    "url": "https://github.com/twilson63/blocpkg/issues"
+  },
+  "homepage": "https://github.com/twilson63/blocpkg#readme"
 }
